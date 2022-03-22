@@ -14,6 +14,8 @@ jika belum terdapat nilai p maka nilai halamaan = 1,
 dan jika terdapat nilai p maka nilai sesuai dengan nilai pnya
 */
 $halaman = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+$previous = $halaman - 1;
+$next = $halaman + 1;
 /*  
 Jika halamannya lebih dari satu makan halam awal = batas dikali halaman dikurangi batas
 dan jika halamannya lebih kecil dari 1 atau sama dengan 1 makan halam awal = 0
@@ -66,12 +68,12 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         <input type="text" id="fname" name="menu">
         <input type="submit" value="submit" name="submit">
     </form>
-    <a href=""><button>Previous</button></a>
+    <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>"><button>Previous</button></a>
     <?php for ($no = 1; $no <= $jumlahHalaman; $no++) : ?>
         <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb"><?= $no ?></button></a>
     <?php endfor; ?>
 
-    <a href=""><button>Next</button></a>
+    <a href="?p=<?= $next ?>&menu=<?= $keyword ?>"><button>Next</button></a>
     <table class="tabel">
         <tr>
             <th>NO</th>
