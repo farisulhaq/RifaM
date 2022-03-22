@@ -58,6 +58,10 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         .mt {
             margin-top: 5px;
         }
+        .btn {
+            color: white;
+            background: red;
+        }
     </style>
 </head>
 
@@ -70,7 +74,11 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
     </form>
     <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>"><button>Previous</button></a>
     <?php for ($no = 1; $no <= $jumlahHalaman; $no++) : ?>
-        <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb"><?= $no ?></button></a>
+        <?php if($no == $halaman) : ?>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb btn"><?= $no ?></button></a>
+        <?php else : ?>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb"><?= $no ?></button></a>
+        <?php endif; ?>
     <?php endfor; ?>
 
     <a href="?p=<?= $next ?>&menu=<?= $keyword ?>"><button>Next</button></a>
