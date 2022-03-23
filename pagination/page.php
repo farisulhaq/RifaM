@@ -6,7 +6,11 @@ if (isset($_POST['reload'])) {
     header("Location: page.php");
 };
 // Batas Baris yang mau ditampilan
-$batas = 10;
+$limit = isset($_GET['batas']) ? $_GET['batas'] : 10;
+$batas = isset($_POST['batas']) ? $_POST['baris'] : $limit;
+// (var_dump($batas));
+// $batas = 10;
+// Jika $_GET['menu'] ada isinya
 $keyword = isset($_GET['menu']) ? $_GET['menu'] : '';
 /* 
 Cek posisi halaman
@@ -58,6 +62,7 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         .mt {
             margin-top: 5px;
         }
+
         .btn {
             color: white;
             background: red;
@@ -72,16 +77,23 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         <input type="text" id="fname" name="menu">
         <input type="submit" value="submit" name="submit">
     </form>
-    <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>"><button>Previous</button></a>
+    <form action="" method="POST" class="mb">
+        <input type="text" name="baris" placeholder="Batas Baris Default 10">
+        <input type="submit" value="Atur" name="batas">
+    </form>
+    <?php if ($halaman > 1) : ?>
+        <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button>Previous</button></a>
+    <?php endif; ?>
     <?php for ($no = 1; $no <= $jumlahHalaman; $no++) : ?>
-        <?php if($no == $halaman) : ?>
-            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb btn"><?= $no ?></button></a>
+        <?php if ($no == $halaman) : ?>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button class="mb btn"><?= $no ?></button></a>
         <?php else : ?>
-            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>"><button class="mb"><?= $no ?></button></a>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button class="mb"><?= $no ?></button></a>
         <?php endif; ?>
     <?php endfor; ?>
-
-    <a href="?p=<?= $next ?>&menu=<?= $keyword ?>"><button>Next</button></a>
+    <?php if ($halaman < $jumlahHalaman) : ?>
+        <a href="?p=<?= $next ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button>Next</button></a>
+    <?php endif; ?>
     <table class="tabel">
         <tr>
             <th>NO</th>
