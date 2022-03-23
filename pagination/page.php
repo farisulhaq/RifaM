@@ -82,17 +82,17 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         <input type="submit" value="Atur" name="batas">
     </form>
     <?php if ($halaman > 1) : ?>
-        <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button>Previous</button></a>
+        <a href="?p=<?= $previous ?>&menu=<?= $keyword ?>&batas=<?= $batas ?>"><button>Previous</button></a>
     <?php endif; ?>
     <?php for ($no = 1; $no <= $jumlahHalaman; $no++) : ?>
         <?php if ($no == $halaman) : ?>
-            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button class="mb btn"><?= $no ?></button></a>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas ?>"><button class="mb btn"><?= $no ?></button></a>
         <?php else : ?>
-            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button class="mb"><?= $no ?></button></a>
+            <a href="?p=<?= $no ?>&menu=<?= $keyword ?>&batas=<?= $batas ?>"><button class="mb"><?= $no ?></button></a>
         <?php endif; ?>
     <?php endfor; ?>
     <?php if ($halaman < $jumlahHalaman) : ?>
-        <a href="?p=<?= $next ?>&menu=<?= $keyword ?>&batas=<?= $batas?>"><button>Next</button></a>
+        <a href="?p=<?= $next ?>&menu=<?= $keyword ?>&batas=<?= $batas ?>"><button>Next</button></a>
     <?php endif; ?>
     <table class="tabel">
         <tr>
@@ -107,7 +107,6 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
         $no = $halamanAwal + 1;
         while ($data = mysqli_fetch_array($datas)) :
         ?>
-
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $data['idmenu'] ?></td>
