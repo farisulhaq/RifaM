@@ -12,12 +12,16 @@ $batas = isset($_POST['batas']) ? $_POST['baris'] : $limit;
 // $batas = 10;
 // Jika $_GET['menu'] ada isinya
 $keyword = isset($_GET['menu']) ? $_GET['menu'] : '';
+// Cek Jumlah data 
+$JumlahData = mysqli_num_rows((mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword%'")));
+// Mencari jumlah halaman dengan cara Jumlah data dibagi batas dan fungsi ceil yaitu pembulatan ke atas
+$jumlahHalaman = ceil($JumlahData / $batas);
 /* 
 Cek posisi halaman
 jika belum terdapat nilai p maka nilai halamaan = 1,
 dan jika terdapat nilai p maka nilai sesuai dengan nilai pnya
 */
-$halaman = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+$halaman = isset($_GET['p']) && $_GET['p'] <= $jumlahHalaman ? (int)$_GET['p'] : 1;
 $previous = $halaman - 1;
 $next = $halaman + 1;
 /*  
@@ -25,10 +29,6 @@ Jika halamannya lebih dari satu makan halam awal = batas dikali halaman dikurang
 dan jika halamannya lebih kecil dari 1 atau sama dengan 1 makan halam awal = 0
 */
 $halamanAwal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
-// Cek Jumlah data 
-$JumlahData = mysqli_num_rows((mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword%'")));
-// Mencari jumlah halaman dengan cara Jumlah data dibagi batas dan fungsi ceil yaitu pembulatan ke atas
-$jumlahHalaman = ceil($JumlahData / $batas);
 $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword%' LiMIT $halamanAwal, $batas");
 // die(var_dump($JumlahData));
 
