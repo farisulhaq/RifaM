@@ -104,7 +104,7 @@ $datas = mysqli_query($conn, "SELECT * FROM menu WHERE nama_menu LIKE '%$keyword
             <th>KATEGORI</th>
         </tr>
         <?php
-        $no = 1;
+        $no = $halamanAwal + 1;
         while ($data = mysqli_fetch_array($datas)) :
         ?>
 
